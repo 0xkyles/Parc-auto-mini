@@ -1,11 +1,11 @@
 package com.example.parautomini.Services;
 
 import com.example.parautomini.DTOs.Requests.PermitReq;
+import com.example.parautomini.DTOs.Requests.PermitUpdateReq;
 import com.example.parautomini.DTOs.Response.PermitDTO;
 import com.example.parautomini.Entites.Driver;
 import com.example.parautomini.Entites.Permit;
 import com.example.parautomini.Entites.PermitType;
-import com.example.parautomini.Enums.PermitTypeEnum;
 import com.example.parautomini.Exceptions.ResourceNotFoundException;
 import com.example.parautomini.Mappers.PermitMapper;
 import com.example.parautomini.Repositories.DriverRepository;
@@ -14,6 +14,7 @@ import com.example.parautomini.Repositories.PermitTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,10 +25,11 @@ public class PermitService implements IPermitService {
     private final DriverRepository driverRepository;
     private final PermitMapper permitMapper;
 
-    public PermitDTO add(int driverId, PermitReq permitReq) {
+    public PermitDTO add(PermitReq permitReq) {
         int permitTypeId = permitReq.getPermitTypeId();
-        var driver = this.findDriver(driverId);
+        var driver = this.findDriver(permitReq.getDriverId());
         var permitType = this.findPermitType(permitTypeId);
+
         var permit = permitMapper.objToEntity(permitReq);
         permit.setPermitType(permitType);
         permit.setDriver(driver);
@@ -42,6 +44,40 @@ public class PermitService implements IPermitService {
 
     public List<PermitDTO> getAll(int driverId) {
         return permitRepository.findAllByDriverId(driverId).stream().map(permitMapper::toDTO).toList();
+    }
+
+    @Override
+    public List<PermitDTO> getAllByPermitType(int permitTypeId) {
+        return permitRepository.findAllByPermitTypeId(permitTypeId).stream().map(permitMapper::toDTO).toList();
+    }
+
+    @Override
+    public PermitDTO update(int permitId, PermitUpdateReq permitUpdateReq) {
+        var permit = this.findPermit(permitId);
+        int permitTypeId = permitUpdateReq.getPermitTypeId();
+        Date delivery = permitUpdateReq.getPermitDeliveryDate();
+
+        if(permitTypeId > 0) {
+            var permitType = this.findPermitType(permitTypeId);
+            permit.setPermitType(permitType);
+        }
+        if(delivery != null)
+        {
+            permit.setPermitDeliveryDate(delivery);
+        }
+
+        return permitMapper.toDTO(permitRepository.save(permit));
+    }
+
+    @Override
+    public void delete(int permitId) {
+        var permit = this.findPermit(permitId);
+        permitRepository.delete(permit);
+    }
+
+    @Override
+    public List<PermitDTO> getAllByDriverAndType(int driverId, int permitTypeId) {
+        return permitRepository.findAllByDriverAndType(driverId, permitTypeId).stream().map(permitMapper::toDTO).toList();
     }
 
     private Driver findDriver(int driverId) {

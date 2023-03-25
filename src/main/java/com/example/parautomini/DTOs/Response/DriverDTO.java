@@ -13,5 +13,5 @@ public class DriverDTO {
     private String firstName;
     private String lastName;
     private Date birthday;
-    private String CIN;
+    private String cin;
 }

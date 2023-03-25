@@ -22,13 +22,13 @@ public class Driver {
     private String lastName;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date birthday;
-    private String CIN;
+    @Column(name="cin")
+    private String cin;
     @OneToOne(optional = false)
     @JoinColumn(name="user_id", referencedColumnName = "userId")
     private User user;
     @OneToMany(
             mappedBy = "driver",
-            fetch = FetchType.EAGER,
             cascade = CascadeType.REMOVE
     )
     private List<Permit> permits;

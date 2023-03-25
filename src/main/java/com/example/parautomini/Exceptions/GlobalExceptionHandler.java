@@ -1,6 +1,6 @@
 package com.example.parautomini.Exceptions;
 
-import com.example.parautomini.DTOs.Response.ErrorMessage;
+import com.example.parautomini.DTOs.Response.Message;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -14,25 +14,25 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorMessage> resourceNotFoundExceptionHandler(ResourceNotFoundException ex) {
+    public ResponseEntity<Message> resourceNotFoundExceptionHandler(ResourceNotFoundException ex) {
         return new ResponseEntity<>(
-                new ErrorMessage(ex.getMessage(), HttpStatus.NOT_FOUND),
+                new Message(ex.getMessage(), HttpStatus.NOT_FOUND),
                 HttpStatus.NOT_FOUND
         );
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorMessage> exceptionHandler(Exception ex) {
+    public ResponseEntity<Message> exceptionHandler(Exception ex) {
         return new ResponseEntity<>(
-                new ErrorMessage(ex.getMessage(), HttpStatus.NOT_FOUND),
+                new Message(ex.getMessage(), HttpStatus.NOT_FOUND),
                 HttpStatus.NOT_FOUND
         );
     }
 
     @ExceptionHandler(APIException.class)
-    public ResponseEntity<ErrorMessage> apiExceptionHandler(APIException ex) {
+    public ResponseEntity<Message> apiExceptionHandler(APIException ex) {
         return new ResponseEntity<>(
-                new ErrorMessage(ex.getMessage(), ex.getStatus()),
+                new Message(ex.getMessage(), ex.getStatus()),
                 ex.getStatus()
         );
     }

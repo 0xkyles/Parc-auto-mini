@@ -25,7 +25,7 @@ public class VehicleType {
                 updatable = false,
                 referencedColumnName = "vehicleCategoryId"
     )
-    private VehicleCategory vehicleCategoryId;
+    private VehicleCategory vehicleCategory;
     private String description;
     @OneToMany(mappedBy="vehicleType")
     private Set<VehiclePermitTypeMapping> requiredPermitTypes;

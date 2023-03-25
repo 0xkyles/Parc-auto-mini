@@ -16,4 +16,15 @@ public interface PermitRepository extends JpaRepository<Permit, Integer> {
             nativeQuery = true
     )
     List<Permit> findAllByDriverId(int driverId);
+    @Query(
+            value = "SELECT * FROM permits WHERE permit_type_id = ?1",
+            nativeQuery = true
+    )
+    List<Permit> findAllByPermitTypeId(int permitTypeId);
+
+    @Query(
+            value="SELECT * FROM permits WHERE permit_type_id = ?2 AND driver_id = ?1",
+            nativeQuery = true
+    )
+    List<Permit> findAllByDriverAndType(int driverId, int permitTypeId);
 }

@@ -2,7 +2,7 @@ package com.example.parautomini.Controllers;
 
 import com.example.parautomini.DTOs.Requests.UserCreateReq;
 import com.example.parautomini.DTOs.Requests.UserUpdateReq;
-import com.example.parautomini.DTOs.Response.SuccessMessage;
+import com.example.parautomini.DTOs.Response.Message;
 import com.example.parautomini.DTOs.Response.UserDTO;
 import com.example.parautomini.Services.IUserService;
 import jakarta.validation.Valid;
@@ -40,8 +40,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<SuccessMessage> delete(@PathVariable int userId) {
+    public ResponseEntity<Message> delete(@PathVariable int userId) {
         userService.delete(userId);
-        return ResponseEntity.ok(new SuccessMessage("User deleted successfully", HttpStatus.OK));
+        return ResponseEntity.ok(new Message("User deleted successfully", HttpStatus.OK));
     }
 }

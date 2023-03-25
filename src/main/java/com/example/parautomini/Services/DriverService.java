@@ -3,7 +3,6 @@ package com.example.parautomini.Services;
 import com.example.parautomini.DTOs.Requests.DriverReq;
 import com.example.parautomini.DTOs.Response.DriverDTO;
 import com.example.parautomini.Entites.Driver;
-import com.example.parautomini.Entites.User;
 import com.example.parautomini.Exceptions.ResourceNotFoundException;
 import com.example.parautomini.Mappers.DriverMapper;
 import com.example.parautomini.Repositories.DriverRepository;
@@ -34,7 +33,9 @@ public class DriverService implements IDriverService {
 
     @Override
     public DriverDTO get(int driverId) {
-        var driver = this.findDriver(driverId);
+        var driver = driverRepository.findById(driverId).orElseThrow(
+                () -> new ResourceNotFoundException("Driver", "id", Integer.toString(driverId))
+        );
 
         return driverMapper.toDTO(driver);
     }
@@ -54,13 +55,15 @@ public class DriverService implements IDriverService {
         Date bd = driverReq.getBirthday();
 
         if(registration != null)
-            driver.setRegistration_number(registration);
+            driver.setRegistrationNumber(registration);
         if(firstName != null)
             driver.setFirstName(firstName);
         if(lastName != null)
             driver.setLastName(lastName);
-        if(registration != null)
-            driver.setCIN(CIN);
+        if(CIN != null)
+            driver.setCin(CIN);
+        if(bd != null)
+            driver.setBirthday(bd);
 
         return driverMapper.toDTO(driverRepository.save(driver));
     }
@@ -72,7 +75,7 @@ public class DriverService implements IDriverService {
     }
 
     private Driver findDriver(int driverId) {
-        return driverRepository.findByDriverId(driverId).orElseThrow(
+        return driverRepository.findById(driverId).orElseThrow(
                 () -> new ResourceNotFoundException("Driver", "id", Integer.toString(driverId))
         );
     }

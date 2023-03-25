@@ -1,9 +1,7 @@
 package com.example.parautomini.Mappers;
 
 import com.example.parautomini.DTOs.Response.PermitDTO;
-import com.example.parautomini.DTOs.Response.UserDTO;
 import com.example.parautomini.Entites.Permit;
-import com.example.parautomini.Entites.User;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
