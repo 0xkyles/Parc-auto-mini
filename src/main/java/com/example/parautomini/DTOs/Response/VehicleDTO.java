@@ -11,4 +11,5 @@ public class VehicleDTO {
     private String v_registrationNumber;
     private String name;
     private VehicleTypeEnum vehicleType;
+    private VehicleCategoryEnum vehicleCategory;
 }

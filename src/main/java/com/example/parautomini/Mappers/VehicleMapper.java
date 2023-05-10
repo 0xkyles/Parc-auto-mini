@@ -20,6 +20,7 @@ public class VehicleMapper implements IMapper<Vehicle, VehicleDTO>{
     public VehicleDTO toDTO(Vehicle e) {
         var vehicleDTO = modelMapper.map(e, VehicleDTO.class);
         vehicleDTO.setVehicleType(e.getVehicleType().getLabel());
+        vehicleDTO.setVehicleCategory(e.getVehicleType().getVehicleCategory().getLabel());
 
         return vehicleDTO;
     }

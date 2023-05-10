@@ -2,7 +2,9 @@ package com.example.parautomini.Controllers;
 
 import com.example.parautomini.DTOs.Requests.DriverReq;
 import com.example.parautomini.DTOs.Response.DriverDTO;
+import com.example.parautomini.DTOs.Response.DriverPermissionInfo;
 import com.example.parautomini.DTOs.Response.Message;
+import com.example.parautomini.Enums.LicenseTypeEnum;
 import com.example.parautomini.Services.IDriverService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +35,21 @@ public class DriverController {
         return ResponseEntity.ok(driverService.getAll());
     }
 
+    @GetMapping("/licenseType/{licenseTypeId}")
+    public ResponseEntity<List<DriverDTO>> getAllDriversWithLicenseType(@PathVariable int licenseTypeId) {
+        return ResponseEntity.ok(driverService.getAllDriversWithLicenseType(licenseTypeId));
+    }
+
+    @GetMapping("/info/{driverId}")
+    public ResponseEntity<DriverPermissionInfo> getAllLicenseTypesOfDriver(@PathVariable int driverId) {
+        var res = new DriverPermissionInfo();
+        res.setDriverId(driverId);
+        res.setLicenseTypes(driverService.getAllLicenseTypesOfDriver(driverId));
+        res.setPermittedToDriveVehicleTypes(driverService.getAllVehicleTypesOfDriver(driverId));
+
+        return ResponseEntity.ok(res);
+    }
+
     @PutMapping("/{driverId}")
     public ResponseEntity<DriverDTO> update(@PathVariable int driverId, @RequestBody DriverReq driver) {
         return ResponseEntity.ok(driverService.update(driverId, driver));
@@ -41,6 +58,6 @@ public class DriverController {
     @DeleteMapping("/{driverId}")
     public ResponseEntity<Message> delete(@PathVariable int driverId) {
         driverService.delete(driverId);
-        return ResponseEntity.ok(new Message("User deleted successfully", HttpStatus.OK));
+        return ResponseEntity.ok(new Message("User deleted successfully"));
     }
 }

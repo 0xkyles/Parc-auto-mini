@@ -2,10 +2,13 @@ package com.example.parautomini.Controllers;
 
 import com.example.parautomini.DTOs.Requests.VehicleReq;
 import com.example.parautomini.DTOs.Response.Message;
+import com.example.parautomini.DTOs.Response.VehicleCategoryDTO;
 import com.example.parautomini.DTOs.Response.VehicleDTO;
 import com.example.parautomini.DTOs.Response.VehicleTypeDTO;
+import com.example.parautomini.Services.IVehicleCategoryService;
 import com.example.parautomini.Services.IVehicleService;
 import com.example.parautomini.Services.IVehicleTypeService;
+import com.example.parautomini.Services.VehicleCategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,7 @@ import java.util.List;
 public class VehicleController {
     private final IVehicleService vehicleService;
     private final IVehicleTypeService vehicleTypeService;
+    private final IVehicleCategoryService vehicleCategoryService;
 
     @GetMapping("/{v_registrationNumber}")
     public ResponseEntity<VehicleDTO> get(@PathVariable String v_registrationNumber) {
@@ -39,7 +43,7 @@ public class VehicleController {
     @DeleteMapping("/{v_registrationNumber}")
     public ResponseEntity<Message> delete(@PathVariable String v_registrationNumber) {
         vehicleService.delete(v_registrationNumber);
-        return ResponseEntity.ok(new Message("Vehicle " + v_registrationNumber + " has been deleted successfully", HttpStatus.OK));
+        return ResponseEntity.ok(new Message("Vehicle " + v_registrationNumber + " has been deleted successfully"));
     }
 
     @GetMapping
@@ -55,6 +59,16 @@ public class VehicleController {
     @GetMapping("/types")
     public ResponseEntity<List<VehicleTypeDTO>> getAllVehicleTypes() {
         return ResponseEntity.ok(vehicleTypeService.getAll());
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<VehicleCategoryDTO>> getAllVehicleCategories() {
+        return ResponseEntity.ok(vehicleCategoryService.getAll());
+    }
+
+    @GetMapping("/categories/{categoryId}")
+    public ResponseEntity<VehicleCategoryDTO> getAllVehicleCategories(@PathVariable String categoryId) {
+        return ResponseEntity.ok(vehicleCategoryService.get(categoryId));
     }
 
     @GetMapping("/types/{vehicleType}")

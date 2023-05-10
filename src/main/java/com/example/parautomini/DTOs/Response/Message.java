@@ -8,5 +8,4 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public class Message {
     private final String message;
-    private final HttpStatus status;
 }

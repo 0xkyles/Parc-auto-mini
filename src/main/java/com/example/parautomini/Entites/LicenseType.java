@@ -1,6 +1,6 @@
 package com.example.parautomini.Entites;
 
-import com.example.parautomini.Enums.PermitTypeEnum;
+import com.example.parautomini.Enums.LicenseTypeEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,15 +10,15 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name="permit_types")
-public class PermitType {
+@Table(name="license_types")
+public class LicenseType {
     @Id
-    @Column(updatable = false)
-    private int permitTypeId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int licenseTypeId;
     @Enumerated(EnumType.STRING)
     @Column(unique = true, updatable = false)
-    private PermitTypeEnum category;
+    private LicenseTypeEnum category;
     private String description;
-    @OneToMany(mappedBy = "permitType")
+    @OneToMany(mappedBy = "licenseType")
     private Set<VehiclePermitTypeMapping> allowedVehicleTypes;
 }

@@ -13,16 +13,14 @@ import java.util.Set;
 @Table(name="vehicles_types")
 public class VehicleType {
     @Id
-    @Column(updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int vehicleTypeId;
-
     @Enumerated(EnumType.STRING)
-    @Column(unique=true, updatable = false)
+    @Column(unique=true)
     private VehicleTypeEnum label;
     @ManyToOne
     @JoinColumn(
                 name="vehicle_category_id",
-                updatable = false,
                 referencedColumnName = "vehicleCategoryId"
     )
     private VehicleCategory vehicleCategory;

@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Message> resourceNotFoundExceptionHandler(ResourceNotFoundException ex) {
         return new ResponseEntity<>(
-                new Message(ex.getMessage(), HttpStatus.NOT_FOUND),
+                new Message(ex.getMessage()),
                 HttpStatus.NOT_FOUND
         );
     }
@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Message> exceptionHandler(Exception ex) {
         return new ResponseEntity<>(
-                new Message(ex.getMessage(), HttpStatus.NOT_FOUND),
+                new Message(ex.getMessage()),
                 HttpStatus.NOT_FOUND
         );
     }
@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(APIException.class)
     public ResponseEntity<Message> apiExceptionHandler(APIException ex) {
         return new ResponseEntity<>(
-                new Message(ex.getMessage(), ex.getStatus()),
+                new Message(ex.getMessage()),
                 ex.getStatus()
         );
     }

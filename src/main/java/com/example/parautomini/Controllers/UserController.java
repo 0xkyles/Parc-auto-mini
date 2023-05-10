@@ -20,8 +20,9 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping
-    public ResponseEntity<UserDTO> register(@RequestBody @Valid UserCreateReq user) {
-        return new ResponseEntity<>(userService.register(user), HttpStatus.CREATED);
+    public ResponseEntity<Message> register(@RequestBody @Valid UserCreateReq user) {
+        userService.register(user);
+        return new ResponseEntity<>(new Message("User successfully created"), HttpStatus.CREATED);
     }
 
     @GetMapping("/{userId}")
@@ -35,13 +36,14 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<UserDTO> update(@PathVariable int userId, @RequestBody UserUpdateReq user) {
-        return ResponseEntity.ok(userService.update(userId, user));
+    public ResponseEntity<Message> update(@PathVariable int userId, @RequestBody UserUpdateReq user) {
+        userService.update(userId, user);
+        return ResponseEntity.ok(new Message("User successfully updated"));
     }
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<Message> delete(@PathVariable int userId) {
         userService.delete(userId);
-        return ResponseEntity.ok(new Message("User deleted successfully", HttpStatus.OK));
+        return ResponseEntity.ok(new Message("User deleted successfully"));
     }
 }

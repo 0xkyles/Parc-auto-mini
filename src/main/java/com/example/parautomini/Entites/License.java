@@ -9,19 +9,19 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name="permits")
-public class Permit {
+@Table(name="licenses")
+public class License {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int permitId;
+    private int licenseId;
     @ManyToOne
     @JoinColumn(
-            name="permit_type_id",
-            referencedColumnName = "permitTypeId"
+            name="license_type_id",
+            referencedColumnName = "licenseTypeId"
     )
-    private PermitType permitType;
+    private LicenseType licenseType;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date permitDeliveryDate;
+    private Date deliveryDate;
     @ManyToOne
     @JoinColumn(
             name="driver_id",

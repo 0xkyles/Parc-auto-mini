@@ -16,14 +16,14 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tripId;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date tripStartDate;
+    private Date startDate;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date tripEndDate;
+    private Date endDate;
     @Column(columnDefinition = "boolean default false")
     private boolean isAssigned;
     @ManyToOne
     @JoinColumn(name="vehicle_type_id", referencedColumnName = "vehicleTypeId")
     private VehicleType vehicleType;
-    @OneToMany(mappedBy = "trip")
-    Set<Assignment> assigments;
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.REMOVE)
+    Set<Assignment> assignments;
 }

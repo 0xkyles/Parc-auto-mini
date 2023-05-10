@@ -6,9 +6,11 @@ import com.example.parautomini.Enums.VehicleCategoryEnum;
 import com.example.parautomini.Enums.VehicleTypeEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+@Repository
 public interface VehicleCategoryRepository extends JpaRepository<VehicleCategory, Integer> {
     @Query(
             value = "SELECT * FROM vehicle_categories WHERE label = ?1",

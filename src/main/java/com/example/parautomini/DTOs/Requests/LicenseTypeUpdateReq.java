@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PermitTypeUpdateReq {
+public class LicenseTypeUpdateReq {
     @NotBlank(message = "Description must not be blank")
     private String description;
 }

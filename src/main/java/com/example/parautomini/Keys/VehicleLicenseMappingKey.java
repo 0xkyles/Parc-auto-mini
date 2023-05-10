@@ -9,8 +9,7 @@ import java.io.Serializable;
 @Embeddable
 @Getter
 @Setter
-public class AssigmentKey implements Serializable {
-    private int tripId;
-    private int driverId;
-    private String v_registrationNumber;
+public class VehicleLicenseMappingKey implements Serializable {
+    private int vehicleTypeId;
+    private int licenseTypeId;
 }

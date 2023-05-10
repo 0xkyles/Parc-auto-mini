@@ -11,10 +11,12 @@ import lombok.Setter;
 @Table(name="vehicle_categories")
 public class VehicleCategory {
     @Id
-    @Column(updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int vehicleCategoryId;
+
     @Enumerated(EnumType.STRING)
-    @Column(unique = true, updatable = false)
+    @Column(unique = true)
     private VehicleCategoryEnum label;
+
     private String description;
 }

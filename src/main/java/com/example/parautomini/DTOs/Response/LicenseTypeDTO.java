@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PermitTypeDTO {
-    private int permitTypeId;
+public class LicenseTypeDTO {
+    private int licenseTypeId;
     private String category;
     private String description;
 }

@@ -5,7 +5,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -31,7 +31,15 @@ public class Driver {
             mappedBy = "driver",
             cascade = CascadeType.REMOVE
     )
-    private List<Permit> permits;
-    @OneToMany(mappedBy = "driver", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    Set<Assignment> assignments;
+    private Set<License> licenses;
+    @OneToMany(mappedBy = "driver", cascade = CascadeType.REMOVE)
+    private Set<Assignment> assignments;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Driver driver = (Driver) o;
+        return driverId == driver.driverId;
+    }
 }

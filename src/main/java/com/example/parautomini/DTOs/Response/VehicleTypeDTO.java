@@ -1,6 +1,7 @@
 package com.example.parautomini.DTOs.Response;
 
 import com.example.parautomini.Enums.VehicleCategoryEnum;
+import com.example.parautomini.Enums.VehicleTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class VehicleTypeDTO {
     private int vehicleTypeId;
-    private String label;
+    private VehicleTypeEnum label;
     private VehicleCategoryEnum vehicleCategory;
     private String description;
 }
