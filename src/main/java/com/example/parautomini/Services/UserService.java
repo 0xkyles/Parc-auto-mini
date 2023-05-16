@@ -26,6 +26,7 @@ public class UserService implements IUserService {
         }
 
         var user = userMapper.objToEntity(newUser);
+        user.setRole(User.RoleEnum.DRIVER);
         return userMapper.toDTO(userRepository.save(user));
     }
 
